@@ -1,0 +1,112 @@
+#edit_profile {
+    align-items: center;
+    /*max-height: 100%;*/
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: white;
+}
+
+#edit_profile form {
+    border: 1px solid white;
+}
+
+#user_image {
+    height: 200px;
+    width: 200px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-right: 20px;
+}
+
+#user_image input {
+    cursor: pointer;
+}
+
+#user_image img {
+    height: 100%;
+}
+
+#new_user_image {
+    position: absolute;
+    top:0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+    opacity: 0;
+}
+
+.text_fields, .password_fields {
+    display: flex;
+    padding: 10px;
+    width: 95%;
+    margin-bottom: 20px;
+    /*max-width: 200px;*/
+}
+
+.text_fields button, .password_fields button {
+    margin: auto 0;
+    padding: 10px;
+    color:#937782;
+    cursor:pointer;
+    width: 80px;
+    border-radius: 20px;
+    outline: none;
+}
+
+.text_fields button:hover, .password_fields button:hover {
+    color: white;
+    background-color: #937782;
+    transition: 1s;
+}
+
+#text_fields, #password_fields {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.password_fields {
+    position: relative;
+    margin-bottom: 0;
+    align-items: center;
+}
+
+.password_fields button {
+    position: absolute;
+    right: 10px;
+}
+
+
+#text_fields input, #password_fields input {
+    margin: 5px;
+    padding: 5px;
+    outline: none;
+    border: none;
+    color: gray;
+}
+
+@media only screen and (max-width: 700px) {
+    #edit_profile {
+        flex-direction: column;
+    }
+
+    #user_image {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .text_fields, .password_fields {
+        width: 90%;
+    }
+    #fields {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

@@ -1,0 +1,74 @@
+#log_in, #sign_up{
+    height: 100%;
+    width: 50%;
+    transition: 1s;
+    display: flex;
+    align-items: center;
+}
+
+#sign_up {
+    background-color: #937782;
+}
+
+#log_in p, #sign_up p{
+    font-size: 30px;
+    color: white;
+    margin: auto;
+
+}
+
+#login_form, #signup_form, #recover {
+    width: 100%;
+    height: 100%;
+    background-color: #937782;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#login_form input, #signup_form input, #recover input{
+    display: block;
+    width: 40%;
+    height: 35px;
+    border-radius: 20px;
+    outline: none;
+    padding: 0 5px;
+    margin-bottom: 10px;
+}
+
+#login_form a, #signup_form a{
+    color: white;
+}
+
+#login_form a:hover, #signup_form a:hover{
+    color: #70545f;
+    transition: 1s;
+}
+
+#login_form input[type="submit"], #signup_form input[type="submit"], #recover input[type="submit"]{
+    float:right;
+    color:#937782;
+    margin-right: 10px;
+    margin-bottom: 0;
+    cursor:pointer;
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+}
+
+#login_form input[type="submit"]:hover, #signup_form input[type="submit"]:hover, #recover input[type="submit"]:hover{
+    color: white;
+    background-color: #937782;
+    transition: 1s;
+}
+
+
+
+.close_form {
+    width: 40px;
+    margin: 5px;
+    right: 0;
+    top: 0;
+    position: absolute;
+}s
