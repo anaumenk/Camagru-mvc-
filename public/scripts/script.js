@@ -32,12 +32,6 @@ function darker_sign() {
     document.getElementById('sign_up').style.backgroundColor = "#937782";
 }
 
-// function close_img() {
-//     document.getElementById("shade").style.display = "none";
-//     document.getElementById("entering").style.display = "none";
-// }
-//
-
 function camera() {
     let player = document.querySelector('video');
 
@@ -51,113 +45,82 @@ function camera() {
             audio: false
         },
         function(stream) {
-            if (navigator.mozGetUserMedia) {
-                player.mozSrcObject = stream;
-            } else {
-                player.srcObject = stream;
-            }
+            player.srcObject = stream;
             player.play();
             is_video = true;
         },
         function(err) {
             is_video = false;
-            // captureButton.disabled = true;
+            captureButton.disabled = true;
         }
     );
 }
 
-    function preview(file) {
-        if ( file.type.match(/image.*/) ) {
-            let reader = new FileReader(),
-                img = document.getElementById('new_img');
+function preview(file) {
+    if ( file.type.match(/image.*/) ) {
+        let reader = new FileReader(),
+            img = document.getElementById('new_img');
 
-            reader.addEventListener('load', function(event) {
-                img.src = event.target.result;
-                img.style.display = 'unset';
-            });
-            reader.readAsDataURL(file);
-        }
+        reader.addEventListener('load', e =>  {
+            img.src = e.target.result;
+            img.style.display = 'unset';
+        });
+        reader.readAsDataURL(file);
+    }
+}
+
+function choose_pattern(pattern) {
+
+    // console.log(pattern.className);
+    let old = {
+        parent: document.getElementById('patterns'),
+        nextSibling: pattern.nextSibling,
+        position: pattern.position || '',
+        left: pattern.left || '',
+        top: pattern.top || '',
+        zIndex: pattern.zIndex || '',
+    };
+    pattern.style.position = 'absolute';
+    pattern.className = 'pattern_div draggable';
+    document.body.appendChild(pattern);
+    pattern.style.zIndex = 1000;
+    // console.log(pattern.className);
+
+    moveAt(event);
+
+    function moveAt(e) {
+        pattern.style.left = e.pageX - pattern.offsetWidth / 2 + 'px';
+        pattern.style.top = e.pageY - pattern.offsetHeight / 2 + 'px';
     }
 
-function create_img() {
-    event.preventDefault();
-    // const overlay = document.querySelector('#new_pattern');
+    pattern.rollback = () => {
+        old.parent.insertBefore(pattern, old.nextSibling);
+        pattern.style.position = old.position;
+        pattern.style.left = old.left;
+        pattern.style.top = old.top;
+        pattern.style.zIndex = old.zIndex;
+        pattern.className = 'pattern_div';
+    };
 
-    // if (overlay) {
-        const   video = document.querySelector('#camera'),
-                img = document.querySelector('#new_img'),
-                canvas = document.createElement('canvas');
+    document.onmousemove = e => {
+        moveAt(e);
+    };
 
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0);
-        img.src = canvas.toDataURL('image/png');
-        //
-        // let xmlhttp = new XMLHttpRequest();
-        // let response = xmlhttp.responseText;
-        // xmlhttp.onreadystatechange = function()
-        // {
-        //     if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-        //     {
-        //         let response = xmlhttp.responseText;
-        //         img.src = response;
-        //     }
-        // };
-        // xmlhttp.open("POST", "compare.php", true);
-        // xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        // xmlhttp.send("overlay=" + overlay.src + "&photo=" + img.src);
-    // }
+    pattern.onmouseup = () => {
+        let element = document.elementsFromPoint(event.clientX, event.clientY);
+        document.onmousemove = null;
+        pattern.onmouseup = null;
+        // pattern.className = 'pattern_div';
+        if (element[2].tagName !== 'VIDEO') {
+            pattern.rollback();
+        }
+    };
+
+    pattern.ondragstart = () => {
+        return false;
+    };
 }
-//
-// function save_img() {
-//     var xmlhttp = new XMLHttpRequest();
-//     const img = document.querySelector('#new_img');
-//
-//     if (img) {
-//         if (img.src.indexOf("data:image/png") >= 0) {
-//             xmlhttp.open("POST", "save.php", true);
-//             xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//             xmlhttp.send("photo=" + img.src);
-//         }
-//         else {
-//             document.getElementById('shade').style.display = 'unset';
-//             var elem = document.getElementById('error');
-//             elem.style.display = 'inline-flex';
-//             var newElem = document.createElement('p');
-//             newElem.id = 'p_in_error';
-//             newElem.textContent = 'Select PNG image format';
-//             elem.insertBefore(newElem, elem.firstChild);
-//         }
-//     }
-// }
-//
-// function choose_pattern() {
-//     var pattern = document.querySelector('#patterns').children;
-//     for (var i=0, child; child=pattern[i]; i++) {
-//         child.onclick = function () {
-//             var parElem = document.getElementById('cam_div');
-//
-//             var elem = document.getElementById('new_pattern');
-//             if (elem) {
-//                 elem.remove();
-//             }
-//             var newElem = document.createElement('img');
-//             newElem.id = 'new_pattern';
-//             newElem.style.display = 'none';
-//             newElem.src = this.src;
-//             parElem.appendChild(newElem);
-//         };
-//         child.ondblclick = function () {
-//             var elem = document.getElementById('new_pattern');
-//             if (elem) {
-//                 if (elem.src = this.src) {
-//                     elem.remove();
-//                 }
-//             }
-//         };
-//     }
-// }
-//
+
 // function open_image(i) {
 //     document.getElementById(i).style.display = 'flex';
 // }
@@ -166,50 +129,8 @@ function create_img() {
 //     document.getElementById(i).style.display = 'none';
 // }
 //
-// function change_user_image_prev() {
-//     let inpElem = document.getElementById('new_user_image');
 //
-//         inpElem.addEventListener('change', function(e) {
-//             preview(this.files[0]);
-//         });
-//
-//         function preview(file) {
-//             if ( file.type.match(/image.*/) ) {
-//                 let reader = new FileReader(), img;
-//
-//                 reader.addEventListener('load', function(event) {
-//                     img = document.getElementById('user_image');
-//                     img.src = event.target.result;
-//                 });
-//
-//                 reader.readAsDataURL(file);
-//             }
-//         }
-// }
-//
-// function change_user_image() {
-//     var xmlhttp = new XMLHttpRequest();
-//     const img = document.querySelector('#user_image');
-//
-//     if (img)
-//     {
-//         if (img.src.indexOf("data:image/png") >= 0)
-//         {
-//             xmlhttp.open("POST", "save_user_image.php", true);
-//             xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//             xmlhttp.send("photo=" + img.src);
-//         }
-//         else {
-//             var elem = document.getElementById('error');
-//             elem.style.display = 'inline-flex';
-//             var newElem = document.createElement('p');
-//             newElem.id = 'p_in_error';
-//             newElem.textContent = 'Select PNG image format';
-//             elem.insertBefore(newElem, elem.firstChild);
-//         }
-//     }
-// }
-//
+
 // function open_error(text) {
 //     var elem = document.getElementById('error');
 //

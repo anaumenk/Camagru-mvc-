@@ -159,6 +159,33 @@ class Profile extends Model{
         $this->db->query("UPDATE users SET user_image = :img WHERE user_id = :id", $params);
     }
 
+    public function prevPhotos() {
+        $params = [
+            'id' => $_SESSION['user'],
+        ];
+        return $this->db->row("SELECT * FROM images WHERE `user_id` = :id ORDER BY id_img DESC", $params);
+    }
 
+    public function createImg($img, $patterns) {
+
+    }
+
+    public function addPicture($img) {
+
+        $img = preg_replace("/^.+base64,/", "", $img);
+        $img = str_replace(' ','+',$img);
+        $image_data = base64_decode($img);
+        $name = "$_SESSION[user]-".time().".png";
+        $fullName = 'public/images/users/'.$name;
+
+        file_put_contents($fullName, $image_data);
+
+        $params = [
+            'id' => $_SESSION['user'],
+            'img' => $name,
+        ];
+        $this->db->query("INSERT INTO images (`user_id`, `img_src`) VALUES (:id, :img)", $params);
+        return $name;
+    }
 }
 

@@ -11,7 +11,7 @@
         <link href="/public/styles/addPicture.css" rel="stylesheet">
         <link href="/public/styles/editProfile.css" rel="stylesheet">
         <script src="/public/scripts/script.js"></script>
-        <script src="/public/scripts/message.js"></script>
+        <script src="/public/scripts/forms.js"></script>
     </head>
     <body>
     <header>

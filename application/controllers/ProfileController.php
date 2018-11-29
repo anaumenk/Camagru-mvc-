@@ -52,10 +52,18 @@ class ProfileController extends Controller {
     }
 
     public function add_pictureAction() {
-        if (!empty($_FILES['upload'])) {
-            $this->view->message('success', 'sac');
+        if ($_POST['img']) {
+            $name = $this->model->createImg($_POST['img'], $_POST['patterns']);
+            $this->view->message('success', $_POST['img']);
         }
-        $this->view->render('Add picture');
-    }
+//        else if ($_POST['save']) {
+//            $name = $this->model->addPicture($_POST['save']);
+//            $this->view->message('success', $name);
+//        }
 
+        $vars = [
+            'photos' => $this->model->prevPhotos(),
+        ];
+        $this->view->render('Add picture', $vars);
+    }
 }

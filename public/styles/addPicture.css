@@ -20,8 +20,12 @@
     display: flex;
     /*position: relative;*/
     justify-content: center;
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
 }
+
+/*#camera {*/
+    /*position: relative;*/
+/*}*/
 
 #camera, #new_img {
     object-fit: contain;
@@ -40,6 +44,7 @@
 #buttons {
     width: 500px;
     height: 40px;
+    margin-top: 20px;
     /*display: flex;*/
     /*justify-content: flex-start;*/
     /*align-items: center;*/
@@ -90,7 +95,7 @@
 }
 
 #patterns {
-    height: auto;
+    height: 450px;
     width: 100%;
     /*width: 60%;*/
     display: flex;
@@ -100,16 +105,39 @@
     /*overflow-y: scroll;*/
 }
 
-.pattern_img {
+.pattern_div {
     width: 130px;
     height: 130px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 10px;
+    border: 2px solid #937782;
+    overflow: hidden;
+    cursor: pointer;
 }
 
-.pattern_img img {
+.pattern_div img {
+    height: 100%;
+}
+
+#prev_photos {
+    width: 95%;
+    max-width: 1500px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+.prev_img {
+    width: 100px;
+    height: 100px;
+    /*position: relative;*/
+    margin: 5px;
+    overflow: hidden;
+
+}
+.prev_img img {
     height: 100%;
 }
 
@@ -121,12 +149,22 @@
     #patterns {
         order: -1;
         width: 500px;
+        height: 300px;
+    }
+
+    #prev_photos {
+        width: 500px;
+        margin-left: 20px;
+        justify-content: center;
     }
 }
 
 @media only screen and (max-width: 550px) {
-    #patterns, #photos_form {
+    #patterns, #photos_form, #prev_photos {
         width: 95%;
+        height: auto;
+        margin: auto;
+        justify-content: center;
     }
 
     #photos_form {
@@ -149,24 +187,5 @@
     /*text-align: center;*/
 /*}*/
 
-/*#helpful_div {*/
-    /*margin-bottom: 50px;*/
-/*}*/
 
-/*.prev_photos {*/
-    /*width: 100%;*/
-    /*display: flex;*/
-/*}*/
-
-/*.prev_img {*/
-    /*width: 100px;*/
-    /*height: 100px;*/
-    /*position: relative;*/
-    /*margin: 5px;*/
-    /*overflow: hidden;*/
-    /*flex-wrap: wrap;*/
-/*}*/
-/*.prev_img img {*/
-    /*max-height: 100%;*/
-/*}*/
 
