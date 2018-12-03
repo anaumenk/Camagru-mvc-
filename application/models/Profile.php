@@ -166,22 +166,29 @@ class Profile extends Model{
         return $this->db->row("SELECT * FROM images WHERE `user_id` = :id ORDER BY id_img DESC", $params);
     }
 
-    public function createImg($img, $patterns) {
+    public function createImg($img, $top, $left, $patterns) {
         $photo = preg_replace("/^.+base64,/", "", $img);
         $photo = str_replace(' ','+',$photo);
         $photo = base64_decode($photo);
         $gd_photo = imagecreatefromstring($photo);
 
-        $patterns = explode(',', $patterns);
+        $patterns = json_decode($patterns, true);
 
-        $gd_filter = imagecreatefrompng($patterns[0]);
-        imagecopyresampled($gd_photo, $gd_filter, 100, 100, 0, 0, imagesx($gd_filter), imagesy($gd_filter), imagesx($gd_filter), imagesy($gd_filter));
-
+        foreach ($patterns as $pattern) {
+            $gd_filter = imagecreatefrompng($pattern['src']);
+            imagecopyresampled($gd_photo, $gd_filter,
+                $pattern['left'] - $left, $pattern['top'] - $top,
+                0, 0,
+                imagesx($gd_filter), imagesy($gd_filter),
+                imagesx($gd_filter), imagesy($gd_filter));
+//            return $pattern['top'] - $top;
+        }
         ob_start();
         imagepng($gd_photo);
         $image_data = ob_get_contents();
         ob_end_clean();
         return("data:image/png;base64,".base64_encode($image_data));
+
     }
 
     public function savePicture($img) {

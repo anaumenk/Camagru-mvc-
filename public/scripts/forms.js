@@ -70,30 +70,28 @@ function create_img() {
         img = canvas.toDataURL('image/png');
     for (element of draggable) {
         let coords = getCoords(element);
-        //     array = [];
-        // array['src'] = element.firstChild.src;
-        // array['top'] = coords.top;
-        // array['left'] = coords.left;
-        patterns.push([element.firstChild.src, coords.top, coords.left]);
+        console.log('pattern: ', coords);
+        patterns.push({ "src": element.firstChild.src, "top": coords.top, "left": coords.left});
     }
-    console.log(patterns);
+    // console.log(patterns);
+    // console.log(JSON.stringify(patterns));
     if (patterns.length !== 0) {
-        let coords = getCoords(video), img = '',
-            params = `img=${img}&top=${coords.top}&left=${coords.left}&patterns=${patterns}`;
-        console.log(params);
-        // fetch('/profile/add_picture', {
-        //     method: 'POST',
-        //     headers: {
-        //         "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-        //     },
-        //     body: params,
-        // })
-        //     .then(response => response.json())
-        //     .then(json => {
-        //         // console.log(json.message);
-        //         let photo = document.querySelector('#new_img');
-        //         photo.src = json.message;
-        //         photo.style.display = 'unset';
-        //     })
+        let coords = getCoords(video),
+            params = `img=${img}&top=${coords.top}&left=${coords.left}&patterns=${JSON.stringify(patterns)}`;
+        console.log('video: ', coords);
+        fetch('/profile/add_picture', {
+            method: 'POST',
+            headers: {
+                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+            },
+            body: params,
+        })
+            .then(response => response.json())
+            .then(json => {
+                console.log(json.message);
+                let photo = document.querySelector('#new_img');
+                photo.src = json.message;
+                photo.style.display = 'unset';
+            })
     }
 }

@@ -53,7 +53,7 @@ class ProfileController extends Controller {
 
     public function add_pictureAction() {
         if ($_POST['img']) {
-            $img = $this->model->createImg($_POST['img'], $_POST['patterns']);
+            $img = $this->model->createImg($_POST['img'], $_POST['top'], $_POST['left'], $_POST['patterns']);
             $this->view->message('success', $img);
         }
         else if ($_POST['save']) {
