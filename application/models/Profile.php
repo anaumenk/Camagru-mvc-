@@ -167,11 +167,24 @@ class Profile extends Model{
     }
 
     public function createImg($img, $patterns) {
+        $photo = preg_replace("/^.+base64,/", "", $img);
+        $photo = str_replace(' ','+',$photo);
+        $photo = base64_decode($photo);
+        $gd_photo = imagecreatefromstring($photo);
 
+        $patterns = explode(',', $patterns);
+
+        $gd_filter = imagecreatefrompng($patterns[0]);
+        imagecopyresampled($gd_photo, $gd_filter, 100, 100, 0, 0, imagesx($gd_filter), imagesy($gd_filter), imagesx($gd_filter), imagesy($gd_filter));
+
+        ob_start();
+        imagepng($gd_photo);
+        $image_data = ob_get_contents();
+        ob_end_clean();
+        return("data:image/png;base64,".base64_encode($image_data));
     }
 
-    public function addPicture($img) {
-
+    public function savePicture($img) {
         $img = preg_replace("/^.+base64,/", "", $img);
         $img = str_replace(' ','+',$img);
         $image_data = base64_decode($img);

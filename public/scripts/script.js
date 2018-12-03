@@ -71,7 +71,6 @@ function preview(file) {
 
 function choose_pattern(pattern) {
 
-    // console.log(pattern.className);
     let old = {
         parent: document.getElementById('patterns'),
         nextSibling: pattern.nextSibling,
@@ -84,7 +83,6 @@ function choose_pattern(pattern) {
     pattern.className = 'pattern_div draggable';
     document.body.appendChild(pattern);
     pattern.style.zIndex = 1000;
-    // console.log(pattern.className);
 
     moveAt(event);
 
@@ -110,7 +108,6 @@ function choose_pattern(pattern) {
         let element = document.elementsFromPoint(event.clientX, event.clientY);
         document.onmousemove = null;
         pattern.onmouseup = null;
-        // pattern.className = 'pattern_div';
         if (element[2].tagName !== 'VIDEO') {
             pattern.rollback();
         }

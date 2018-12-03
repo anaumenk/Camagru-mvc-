@@ -7,7 +7,7 @@
 
 #photos_form {
     /*height: 400px;*/
-    width: 500px;
+    /*width: 500px;*/
     display: flex;
     flex-direction: column;
     margin-right: 20px;
@@ -15,7 +15,7 @@
 }
 
 #cam_div {
-    width: 100%;
+    /*width: 100%;*/
     height: auto;
     display: flex;
     /*position: relative;*/
@@ -29,8 +29,8 @@
 
 #camera, #new_img {
     object-fit: contain;
-    max-width: 100%;
-    max-height: 100%;
+    width: 640px;
+    height: 480px;
 }
 
 /*#pic {*/
@@ -95,19 +95,19 @@
 }
 
 #patterns {
-    height: 450px;
+    max-height: 960px;
     width: 100%;
     /*width: 60%;*/
     display: flex;
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-    /*overflow-y: scroll;*/
+    overflow: auto;
 }
 
 .pattern_div {
-    width: 130px;
-    height: 130px;
+    /*width: 130px;*/
+    /*height: 130px;*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -141,15 +141,17 @@
     height: 100%;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1320px) {
     #add_photo {
         flex-direction: column;
     }
 
     #patterns {
         order: -1;
-        width: 500px;
-        height: 300px;
+        width: 95%;
+        margin: auto;
+        justify-content: center;
+        max-height: none;
     }
 
     #prev_photos {
@@ -160,7 +162,7 @@
 }
 
 @media only screen and (max-width: 550px) {
-    #patterns, #photos_form, #prev_photos {
+    #photos_form, #prev_photos {
         width: 95%;
         height: auto;
         margin: auto;

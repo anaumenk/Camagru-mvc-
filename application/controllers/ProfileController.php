@@ -53,13 +53,13 @@ class ProfileController extends Controller {
 
     public function add_pictureAction() {
         if ($_POST['img']) {
-            $name = $this->model->createImg($_POST['img'], $_POST['patterns']);
-            $this->view->message('success', $_POST['img']);
+            $img = $this->model->createImg($_POST['img'], $_POST['patterns']);
+            $this->view->message('success', $img);
         }
-//        else if ($_POST['save']) {
-//            $name = $this->model->addPicture($_POST['save']);
-//            $this->view->message('success', $name);
-//        }
+        else if ($_POST['save']) {
+            $name = $this->model->savePicture($_POST['save']);
+            $this->view->message('success', $name);
+        }
 
         $vars = [
             'photos' => $this->model->prevPhotos(),
