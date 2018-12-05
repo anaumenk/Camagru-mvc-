@@ -181,7 +181,6 @@ class Profile extends Model{
                 0, 0,
                 imagesx($gd_filter), imagesy($gd_filter),
                 imagesx($gd_filter), imagesy($gd_filter));
-//            return $pattern['top'] - $top;
         }
         ob_start();
         imagepng($gd_photo);

@@ -21,6 +21,7 @@ class MainController extends Controller {
     }
 
     public function loginAction() {
+
         if (!empty($_POST['log_login']) and !empty($_POST['log_password'])) {
             if (!$this->model->loginValidate($_POST)) {
                 $this->view->message('error', $this->model->error);
@@ -70,5 +71,16 @@ class MainController extends Controller {
     public function logoutAction() {
         unset($_SESSION['user']);
         $this->view->redirect('/');
+    }
+
+    public function openAction() {
+        $img_id = $this->route['id'];
+        $vars = [
+            'user' => $this->model->userInfo($img_id),
+            'img' => $this->model->imgInfo($img_id),
+            'comments' => $this->model->comments($img_id),
+            'likes' => $this->model->likes(),
+        ];
+        $this->view->render('Image', $vars);
     }
 }

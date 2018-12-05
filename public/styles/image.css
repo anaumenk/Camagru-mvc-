@@ -1,16 +1,3 @@
-#images {
-    display: flex;
-    justify-content: center;
-}
-
-#open_img {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    cursor: pointer;
-    opacity: 0;
-}
-
 .image_view {
     /*display: none;*/
     position: absolute;
@@ -61,6 +48,8 @@
 
 #img_div {
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 #img_div img {

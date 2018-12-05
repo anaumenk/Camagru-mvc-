@@ -188,4 +188,43 @@ class Main extends Model {
         $header .= iconv_mime_encode("Subject", $subject, $subject_preferences);
         mail("$email", "$subject", "$message", $header);
     }
+
+    public function userInfo($img_id) {
+        $params = [
+          'id' => $img_id,
+        ];
+        $result = $this->db->row("SELECT * FROM users 
+                                        INNER JOIN images 
+                                        ON users.user_id = images.user_id
+                                        WHERE images.id_img = :id ", $params);
+        return $result[0];
+    }
+
+    public function imgInfo($img_id) {
+        $params = [
+            'id' => $img_id,
+        ];
+        $result = $this->db->row("SELECT * FROM images
+                                       WHERE id_img = :id ", $params);
+        return $result[0];
+    }
+
+    public function comments($img_id) {
+        $params = [
+            'id' => $img_id,
+        ];
+        return $this->db->row("SELECT users.user_image, users.user_name, comments.comment, comments.user_id
+                                    FROM comments
+                                    INNER JOIN users
+                                    ON users.user_id = comments.user_id
+                                    WHERE img_id = :id ", $params);
+    }
+
+    public function likes() {
+        $params = [
+            'id' => $_SESSION['user'],
+        ];
+        return $this->db->row("SELECT * FROM likes 
+                                    WHERE user_id = :id ", $params);
+    }
 }

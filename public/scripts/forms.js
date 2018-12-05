@@ -20,7 +20,6 @@ function message(form) {
 }
 
 
-
 function save_img() {
     event.preventDefault();
     let img = document.querySelector('#new_img'),
@@ -46,16 +45,6 @@ function save_img() {
     }
 }
 
-function getCoords(elem) {
-    let box = elem.getBoundingClientRect();
-
-    return {
-        top: box.top + pageYOffset,
-        left: box.left + pageXOffset
-    };
-
-}
-
 function create_img() {
     event.preventDefault();
 
@@ -73,12 +62,10 @@ function create_img() {
         console.log('pattern: ', coords);
         patterns.push({ "src": element.firstChild.src, "top": coords.top, "left": coords.left});
     }
-    // console.log(patterns);
-    // console.log(JSON.stringify(patterns));
+
     if (patterns.length !== 0) {
         let coords = getCoords(video),
             params = `img=${img}&top=${coords.top}&left=${coords.left}&patterns=${JSON.stringify(patterns)}`;
-        console.log('video: ', coords);
         fetch('/profile/add_picture', {
             method: 'POST',
             headers: {
@@ -88,10 +75,20 @@ function create_img() {
         })
             .then(response => response.json())
             .then(json => {
-                console.log(json.message);
                 let photo = document.querySelector('#new_img');
                 photo.src = json.message;
                 photo.style.display = 'unset';
             })
     }
+}
+
+function open_image(id) {
+    return fetch('', {
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: `id=${id}`,
+    })
+        .then(response => response.json())
 }

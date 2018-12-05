@@ -43,6 +43,11 @@ return [
         'action' => 'logout',
     ],
 
+    'image/{id:\d+}' => [
+        'controller' => 'main',
+        'action' => 'open',
+    ],
+
     //Profile
 
     'profile' => [
