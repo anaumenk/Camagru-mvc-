@@ -2,7 +2,7 @@
 return [
     'all' => [
         'index',
-        'open',
+        'open'
     ],
     'authorize' => [
         'logout'

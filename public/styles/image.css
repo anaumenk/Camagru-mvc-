@@ -3,7 +3,7 @@
     position: absolute;
     left:0;
     right: 0;
-    top: 250px;
+    top: 200px;
     flex-direction: column;
     width: 80%;
     max-width: 700px;
@@ -11,11 +11,12 @@
     background-color: #70545f;
     color: white;
     z-index: 1;
+    margin-bottom: 50px;
 }
 
 #header_user {
     width: 100%;
-    height: 40px;
+    height: 50px;
     display: flex;
     align-items: center;
     position: relative;
@@ -72,13 +73,25 @@
     position: relative;
 }
 
-#likes button {
+#likes input {
     width: 100%;
     height: 100%;
     position: absolute;
     opacity: 0;
     cursor: pointer;
 }
+
+/*#likes button {*/
+    /*border: none;*/
+    /*background: none;*/
+    /*color: white;*/
+    /*height: 100%;*/
+    /*cursor: pointer;*/
+    /*padding: 0;*/
+    /*font-size: 30px;*/
+    /*margin-right: 3px;*/
+/*}*/
+
 
 #del_image {
     width: 100%;
@@ -100,7 +113,6 @@
 
 #comments_form {
     width: 100%;
-    margin-bottom: 50px;
 }
 
 #comments_form div{
@@ -108,7 +120,7 @@
 }
 
 .comm {
-    height: 60px;
+    min-height: 60px;
 }
 
 .comm div img{
@@ -150,14 +162,24 @@
 
 #del_comment {
     position: absolute;
-    right: 10px;
-    top: 0;
+    right: 20px;
+    top: -10px;
 }
 
-#del_comment input {
+#del_comment button {
     background-color: #70545f;
     border: 0;
     color: white;
     cursor: pointer;
     outline: none;
+}
+
+
+#del_comment button:hover {
+    transition: 1s;
+    font-size: 13px;
+}
+
+#del_comment input {
+    opacity: 0;
 }

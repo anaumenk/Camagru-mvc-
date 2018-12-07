@@ -9,6 +9,18 @@ function message(form) {
             if(json.status && json.status === 'img') {
                 document.getElementById('user_image_img').src = '/public/images/profile/'+json.message;
             }
+            else if (json.message === 'Like') {
+                let likes = document.getElementById('likes');
+                likes.children[0].name = 'unlike';
+                likes.children[1].className = 'fas fa-heart';
+                likes.children[2].innerHTML = parseInt(likes.children[2].innerHTML) + 1;
+            }
+            else if (json.message === 'Unlike') {
+                let likes = document.getElementById('likes');
+                likes.children[0].name = 'like';
+                likes.children[1].className = 'far fa-heart';
+                likes.children[2].innerHTML = parseInt(likes.children[2].innerHTML) - 1;
+            }
             else if (json.message) {
                 alert(json.status + ' - ' + json.message);
             }
@@ -80,15 +92,4 @@ function create_img() {
                 photo.style.display = 'unset';
             })
     }
-}
-
-function open_image(id) {
-    return fetch('', {
-        method: 'POST',
-        headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-        },
-        body: `id=${id}`,
-    })
-        .then(response => response.json())
 }

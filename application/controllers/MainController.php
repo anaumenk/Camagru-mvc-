@@ -75,11 +75,27 @@ class MainController extends Controller {
 
     public function openAction() {
         $img_id = $this->route['id'];
+        if (isset($_POST['like'])) {
+            $this->model->setLike($img_id);
+            $this->view->message('success', 'Like');
+        }
+        else if (isset($_POST['unlike'])) {
+            $this->model->setUnlike($img_id);
+            $this->view->message('success', 'Unlike');
+        }
+//        else if (!empty($_POST['comment_text'])) {
+//            $this->view->message('success', 'Comment');
+//            $this->model->sendComment($img_id);
+//        }
+//        else if (isset($_POST['del_comm'])) {
+//            $this->view->message('success', 'Del comment');
+//            $this->model->delComment($_POST['del_comm'], $img_id);
+//        }
         $vars = [
             'user' => $this->model->userInfo($img_id),
             'img' => $this->model->imgInfo($img_id),
             'comments' => $this->model->comments($img_id),
-            'likes' => $this->model->likes(),
+            'isLike' => $this->model->likes($img_id),
         ];
         $this->view->render('Image', $vars);
     }

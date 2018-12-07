@@ -10,6 +10,7 @@
         <link href="/public/styles/forms.css" rel="stylesheet">
         <link href="/public/styles/addPicture.css" rel="stylesheet">
         <link href="/public/styles/editProfile.css" rel="stylesheet">
+        <link rel="shortcut icon" href="/public/favicon.ico">
         <script src="/public/scripts/script.js"></script>
         <script src="/public/scripts/forms.js"></script>
     </head>

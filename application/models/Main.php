@@ -213,18 +213,43 @@ class Main extends Model {
         $params = [
             'id' => $img_id,
         ];
-        return $this->db->row("SELECT users.user_image, users.user_name, comments.comment, comments.user_id
+        return $this->db->row("SELECT users.user_image, users.user_name, comments.id AS comment_id, comments.comment, comments.user_id
                                     FROM comments
                                     INNER JOIN users
                                     ON users.user_id = comments.user_id
                                     WHERE img_id = :id ", $params);
     }
 
-    public function likes() {
+    public function likes($img_id) {
         $params = [
             'id' => $_SESSION['user'],
+            'img' => $img_id,
         ];
-        return $this->db->row("SELECT * FROM likes 
-                                    WHERE user_id = :id ", $params);
+        return $this->db->row("SELECT * FROM likes
+                                    WHERE user_id = :id AND image_id = :img", $params);
+    }
+
+    public function setLike($img_id) {
+        $params = [
+            'img' => $img_id,
+            'userId' => $_SESSION['user'],
+        ];
+        $sql = $this->db->row("SELECT * FROM likes WHERE user_id = :userId AND image_id = :img", $params);
+        if (!$sql) {
+            $this->db->query("INSERT INTO likes (user_id, image_id) VALUES (:userId, :img);
+                                   UPDATE images SET likes = likes + 1 WHERE id_img = :img", $params);
+        }
+    }
+
+    public function setUnlike($img_id) {
+        $params = [
+            'img' => $img_id,
+            'userId' => $_SESSION['user'],
+        ];
+        $sql = $this->db->row("SELECT * FROM likes WHERE user_id = :userId AND image_id = :img", $params);
+        if ($sql) {
+            $this->db->query("DELETE FROM likes WHERE user_id = :userId AND `image_id` = :img;
+                                   UPDATE images SET likes = likes - 1 WHERE id_img = :img", $params);
+        }
     }
 }
