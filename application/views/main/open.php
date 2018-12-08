@@ -32,10 +32,16 @@
     </form>
 
     <div id='comments_form'>
-        <form id='new_comment' method='post' onclick="message(this)">
-            <textarea name='comment_text'></textarea>
-            <button>Comment</button>
-        </form>
+        <?php if ($_SESSION['user']): ?>
+            <form
+                    id='new_comment'
+                    method='post'
+                    onsubmit="newComment(this, '<?php echo $_SESSION['name']; ?>', '<?php echo $_SESSION['img']; ?>')"
+            >
+                <textarea name='comment_text'></textarea>
+                <button>Comment</button>
+            </form>
+        <?php endif; ?>
         <?php foreach ($comments as $comm): ?>
             <div class='comm'>
                 <div style='display: flex; margin-bottom: 5px;'>

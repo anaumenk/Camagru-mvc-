@@ -131,3 +131,17 @@ function getCoords(elem) {
 function return_back() {
     window.history.back();
 }
+
+function setLike() {
+    let likes = document.getElementById('likes');
+    likes.children[0].name = 'unlike';
+    likes.children[1].className = 'fas fa-heart';
+    likes.children[2].innerHTML = parseInt(likes.children[2].innerHTML) + 1;
+}
+
+function setUnlike() {
+    let likes = document.getElementById('likes');
+    likes.children[0].name = 'like';
+    likes.children[1].className = 'far fa-heart';
+    likes.children[2].innerHTML = parseInt(likes.children[2].innerHTML) - 1;
+}

@@ -120,6 +120,8 @@ class Main extends Model {
         }
         $this->db->query("UPDATE users SET `activate` = 1 WHERE `token` = :token", $params);
         $_SESSION['user'] = $result[0]['user_id'];
+        $_SESSION['name'] = $result[0]['user_name'];
+        $_SESSION['img'] = $result[0]['user_image'] ? $result[0]['user_image'] : 'user_image.png';
         return true;
     }
 
@@ -140,6 +142,9 @@ class Main extends Model {
             return false;
         }
         $_SESSION['user'] = $result[0]['user_id'];
+        $_SESSION['user'] = $result[0]['user_id'];
+        $_SESSION['name'] = $result[0]['user_name'];
+        $_SESSION['img'] = $result[0]['user_image'] ? $result[0]['user_image'] : 'user_image.png';
         return true;
     }
 
@@ -251,5 +256,17 @@ class Main extends Model {
             $this->db->query("DELETE FROM likes WHERE user_id = :userId AND `image_id` = :img;
                                    UPDATE images SET likes = likes - 1 WHERE id_img = :img", $params);
         }
+    }
+
+    public function sendComment($img_id, $comment) {
+        $params = [
+            'img' => $img_id,
+            'comment' => $comment,
+            'userId' => $_SESSION['user'],
+        ];
+        $this->db->query("INSERT INTO comments (img_id, user_id, comment) 
+                              VALUES (:img, :userId, :comment)", $params);
+        $result = $this->db->lastInsertId();
+        return $result;
     }
 }

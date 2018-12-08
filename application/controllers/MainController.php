@@ -83,10 +83,10 @@ class MainController extends Controller {
             $this->model->setUnlike($img_id);
             $this->view->message('success', 'Unlike');
         }
-//        else if (!empty($_POST['comment_text'])) {
-//            $this->view->message('success', 'Comment');
-//            $this->model->sendComment($img_id);
-//        }
+        else if (!empty($_POST['comment_text'])) {
+            $id = $this->model->sendComment($img_id, $_POST['comment_text']);
+            $this->view->message('success', $id);
+        }
 //        else if (isset($_POST['del_comm'])) {
 //            $this->view->message('success', 'Del comment');
 //            $this->model->delComment($_POST['del_comm'], $img_id);
