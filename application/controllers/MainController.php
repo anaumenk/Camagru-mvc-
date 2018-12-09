@@ -87,10 +87,11 @@ class MainController extends Controller {
             $id = $this->model->sendComment($img_id, $_POST['comment_text']);
             $this->view->message('success', $id);
         }
-//        else if (isset($_POST['del_comm'])) {
-//            $this->view->message('success', 'Del comment');
-//            $this->model->delComment($_POST['del_comm'], $img_id);
-//        }
+        else if (isset($_POST['del_comm'])) {
+            $this->model->delComment($_POST['del_comm'], $img_id);
+            $this->view->message('success', 'del');
+
+        }
         $vars = [
             'user' => $this->model->userInfo($img_id),
             'img' => $this->model->imgInfo($img_id),

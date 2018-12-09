@@ -9,8 +9,8 @@
 
     <div id='img_div'><img src='/public/images/users/<?php echo $img['img_src']; ?>'></div>
 
-    <form id='likes_comments' method='post' onclick="message(this)">
-        <div id='likes'>
+    <div id='likes_comments' >
+        <form id='likes' method='post' onclick="message(this)">
             <?php if ($isLike): ?>
                 <input name="unlike" />
                 <i class='fas fa-heart'></i>
@@ -18,9 +18,9 @@
                 <input name="like" />
                 <i class='far fa-heart'></i>
             <?php endif; ?>
-<!--            <input name="setLike" />-->
             <p><?php echo $img['likes']; ?></p>
-        </div>
+
+        </form>
         <div id='comments'>
             <?php if ($comments): ?>
                 <i class="fas fa-comment"></i>
@@ -29,7 +29,7 @@
             <?php endif; ?>
             <p><?php echo $img['comments']; ?></p>
         </div>
-    </form>
+    </div>
 
     <div id='comments_form'>
         <?php if ($_SESSION['user']): ?>
@@ -51,7 +51,7 @@
                 <div style='position: relative;'>
                     <p><?php echo $comm['comment']; ?></p>
                     <?php if ($_SESSION['user'] == $comm['user_id']): ?>
-                        <form id='del_comment' method='post' onclick="message(this)">
+                        <form id='del_comment' method='post' onsubmit="delComment(this)">
                             <input name="del_comm" value="<?php echo $comm['comment_id']?>">
                             <button>Delete</button>
                         </form>

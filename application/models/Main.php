@@ -251,11 +251,8 @@ class Main extends Model {
             'img' => $img_id,
             'userId' => $_SESSION['user'],
         ];
-        $sql = $this->db->row("SELECT * FROM likes WHERE user_id = :userId AND image_id = :img", $params);
-        if ($sql) {
-            $this->db->query("DELETE FROM likes WHERE user_id = :userId AND `image_id` = :img;
-                                   UPDATE images SET likes = likes - 1 WHERE id_img = :img", $params);
-        }
+        $this->db->query("DELETE FROM likes WHERE user_id = :userId AND `image_id` = :img;
+                               UPDATE images SET likes = likes - 1 WHERE id_img = :img AND user_id = :userId", $params);
     }
 
     public function sendComment($img_id, $comment) {
@@ -264,9 +261,20 @@ class Main extends Model {
             'comment' => $comment,
             'userId' => $_SESSION['user'],
         ];
-        $this->db->query("INSERT INTO comments (img_id, user_id, comment) 
-                              VALUES (:img, :userId, :comment)", $params);
+        $this->db->query("INSERT INTO comments (img_id, user_id, comment) VALUES (:img, :userId, :comment)", $params);
         $result = $this->db->lastInsertId();
+        $this->db->query("UPDATE images SET comments = comments + 1 WHERE id_img = :img", $params);
         return $result;
+    }
+
+    public function delComment($comm_id, $img_id) {
+        $params = [
+            'comm' => $comm_id,
+            'img' => $img_id,
+            'userId' => $_SESSION['user'],
+        ];
+        $this->db->query("DELETE FROM `comments` WHERE `id` = :comm AND user_id = :userId;
+                              UPDATE `images` SET `comments` = `comments` - 1 
+                              WHERE `id_img` = :img AND user_id = :userId AND comments > 0", $params);
     }
 }
