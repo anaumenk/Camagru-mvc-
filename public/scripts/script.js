@@ -145,3 +145,45 @@ function setUnlike() {
     likes.children[1].className = 'far fa-heart';
     likes.children[2].innerHTML = parseInt(likes.children[2].innerHTML) - 1;
 }
+
+function createComment(login, avatar, message) {
+    let comments = document.getElementById('comments_form'),
+        comm = document.createElement('div'),
+        user = document.createElement('div'),
+        comment = document.createElement('div'),
+        img = document.createElement('img'),
+        p = document.createElement('p'),
+        p_comm = document.createElement('p'),
+        textarea = document.getElementById('new_comment').children[0],
+        del_comment = document.createElement('form'),
+        del_comment_input = document.createElement('input'),
+        button = document.createElement('button'),
+        number_of_comments = document.getElementById('comments');
+    comm.className = 'comm';
+    comments.appendChild(comm);
+    user.style.display = 'flex';
+    user.style.marginBottom = '5px';
+    comm.appendChild(user);
+    comment.style.position = 'relative';
+    comm.appendChild(comment);
+    img.src = '/public/images/profile/' + avatar;
+    user.appendChild(img);
+    p.innerText = login;
+    user.appendChild(p);
+    p_comm.innerText = textarea.value;
+    comment.appendChild(p_comm);
+    del_comment.id = 'del_comment';
+    del_comment.method = 'post';
+    del_comment.onsubmit = (e) => {
+        delComment(e.target);
+    };
+    comment.appendChild(del_comment);
+    del_comment_input.name = 'del_comm';
+    del_comment_input.value = message;
+    del_comment.appendChild(del_comment_input);
+    button.innerText = 'Delete';
+    del_comment.appendChild(button);
+    number_of_comments.children[1].innerHTML = parseInt(number_of_comments.children[1].innerHTML) + 1;
+    number_of_comments.children[0].className = 'fas fa-comment';
+    textarea.value = '';
+}
