@@ -6,7 +6,6 @@ use application\core\Controller;
 use application\lib\Pagination;
 
 class MainController extends Controller {
-
     public function indexAction() {
         $pagination = new Pagination($this->route, $this->model->galleryCount());
         $vars = [
@@ -91,6 +90,10 @@ class MainController extends Controller {
             $this->model->delComment($_POST['del_comm'], $img_id);
             $this->view->message('success', 'del');
 
+        }
+        else if (isset($_POST['del_image_btn'])) {
+            $this->model->delImage($img_id);
+            $this->view->location('/profile');
         }
         $vars = [
             'user' => $this->model->userInfo($img_id),

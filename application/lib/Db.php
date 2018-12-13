@@ -13,7 +13,7 @@ class Db {
         try{
             $this->db = new PDO("mysql:host=$config[host];dbname=$config[dbname]", $config['user'], $config['password']);
         } catch (PDOException $e) {
-            exec ("/Users/anaumenk/MAMP/mysql/bin/mysql -u root -pfktrcfylhf < /Users/anaumenk/MAMP/apache2/htdocs/php/application/config/camagru.sql");
+            exec ("/Users/anaumenk/MAMP/mysql/bin/mysql -u root -pfktrcfylhf < /Users/anaumenk/MAMP/apache2/htdocs/application/config/camagru.sql");
             $this->db = new PDO("mysql:host=$config[host];dbname=$config[dbname]", $config['user'], $config['password']);
         }
     }

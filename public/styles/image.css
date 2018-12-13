@@ -5,7 +5,7 @@
     right: 0;
     top: 200px;
     flex-direction: column;
-    width: 80%;
+    width: 95%;
     max-width: 700px;
     margin: auto;
     background-color: #70545f;
@@ -47,16 +47,33 @@
     cursor: pointer;
 }
 
+#del_image {
+    height: 20px;
+    width: 73px;
+    padding: 5px;
+    margin: auto;
+}
+
+#del_image input {
+    background: none;
+    border: 0;
+    outline: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 #img_div {
     width: 100%;
+    height: 500px;
     display: flex;
     justify-content: center;
 }
 
 #img_div img {
     max-width: 100%;
-    max-height: 600px;
-
+    /*max-height: 100%;*/
+    object-fit: cover;
 }
 
 #likes_comments {
@@ -79,38 +96,6 @@
     position: absolute;
     opacity: 0;
     cursor: pointer;
-}
-
-/*#likes button {*/
-    /*border: none;*/
-    /*background: none;*/
-    /*color: white;*/
-    /*height: 100%;*/
-    /*width: 100%;*/
-    /*cursor: pointer;*/
-    /*padding: 0;*/
-    /*font-size: 30px;*/
-    /*margin-right: 3px;*/
-    /*outline: none;*/
-/*}*/
-
-
-#del_image {
-    width: 100%;
-    height: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-#del_image input {
-    background-color: inherit;
-    border: 0;
-    cursor: pointer;
-    outline: none;
-    color: white;
-    font-weight: bold;
 }
 
 #comments_form {

@@ -174,7 +174,7 @@ function createComment(login, avatar, message) {
     comment.appendChild(p_comm);
     del_comment.id = 'del_comment';
     del_comment.method = 'post';
-    del_comment.onsubmit = (e) => {
+    del_comment.onsubmit = e => {
         delComment(e.target);
     };
     comment.appendChild(del_comment);

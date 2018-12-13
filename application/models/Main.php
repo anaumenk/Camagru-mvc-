@@ -256,15 +256,15 @@ class Main extends Model {
     }
 
     public function sendComment($img_id, $comment) {
+        $comment = htmlspecialchars($comment);
         $params = [
             'img' => $img_id,
             'comment' => $comment,
             'userId' => $_SESSION['user'],
         ];
-        $this->db->query("INSERT INTO comments (img_id, user_id, comment) VALUES (:img, :userId, :comment)", $params);
-        $result = $this->db->lastInsertId();
-        $this->db->query("UPDATE images SET comments = comments + 1 WHERE id_img = :img", $params);
-        return $result;
+        $this->db->query("UPDATE images SET comments = comments + 1 WHERE id_img = :img;
+                              INSERT INTO comments (img_id, user_id, comment) VALUES (:img, :userId, :comment)", $params);
+        return $this->db->lastInsertId();
     }
 
     public function delComment($comm_id, $img_id) {
@@ -276,5 +276,15 @@ class Main extends Model {
         $this->db->query("DELETE FROM `comments` WHERE `id` = :comm AND user_id = :userId;
                               UPDATE `images` SET `comments` = `comments` - 1 
                               WHERE `id_img` = :img AND user_id = :userId AND comments > 0", $params);
+    }
+
+    public function delImage($img_id) {
+        $params = [
+            'img' => $img_id,
+            'userId' => $_SESSION['user'],
+        ];
+        $this->db->query("DELETE FROM images WHERE id_img = :img AND user_id = :userId;
+                              DELETE FROM `comments` WHERE `img_id` = :img;
+                              DELETE  FROM likes WHERE image_id = :img", $params);
     }
 }
